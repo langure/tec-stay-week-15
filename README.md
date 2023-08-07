@@ -35,3 +35,26 @@ Despite these challenges, CRFs remain a popular choice for NER due to their abil
 
 # Code example
 
+Step 1: Importing Libraries and Loading the Dataset
+
+We begin by importing the necessary libraries, including nltk for natural language processing and sklearn_crfsuite for CRF implementation. We also import conll2002 from nltk.corpus to access the English dataset for NER. The dataset is part of the NLTK library, and we download it using nltk.download('conll2002').
+
+Step 2: Defining the Feature Extraction Function
+
+Next, we define the word2features function responsible for extracting features from each token in the sentences. The features include the word itself, its part-of-speech (POS) tag, and neighboring words and POS tags. These features will be used to train the CRF model.
+
+Step 3: Loading and Preparing the Dataset
+
+We load the CONLL 2002 dataset for English NER using conll2002.iob_sents('eng.train'). This dataset contains sentences with annotations for named entities in IOB format (Inside, Outside, Beginning). We convert the dataset into feature vectors X and label vectors y, which will be used for training and evaluation.
+
+Step 4: Splitting the Dataset into Train and Test Sets
+
+We use train_test_split from sklearn.model_selection to split the data into training and testing sets. We allocate 80% of the data for training and 20% for testing. The random state ensures reproducibility of the results.
+
+Step 5: Training the CRF Model
+
+We create a CRF model using the CRF class from sklearn_crfsuite. We set some hyperparameters like the optimization algorithm ('lbfgs'), regularization strengths (c1 and c2), and maximum iterations. The all_possible_transitions parameter allows the model to learn all possible state transitions. We then fit the model to the training data using the fit method.
+
+Step 6: Evaluating the CRF Model
+
+We predict named entities on the test data using the trained CRF model and evaluate its performance using precision, recall, and F1-score for each named entity type. The metrics.flat_classification_report function from sklearn_crfsuite.metrics provides a convenient way to compute these metrics.
